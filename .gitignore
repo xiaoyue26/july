@@ -1,0 +1,15 @@
+.idea
+build
+.DS_Store
+out
+*.out
+build.tar
+gradle/
+gradlew*
+.gradle/
+src/main/java/redis/ArticleReadCount.java
+src/main/java/redis/PkDailyStat.java
+src/main/java/redis/RedisClient.java
+src/main/java/redis/RushReader.java
+*.iml
+gradle.properties

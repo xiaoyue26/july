@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<!--
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License. See accompanying LICENSE file.
+-->
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+    <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>/home/maintain/hadoop/data/hdfs-namenode</value>
+        <description>Path on the local filesystem where the NameNode stores the namespace and transaction logs persistently.</description>
+    </property>
+    <property>
+        <name>dfs.webhdfs.enabled</name>
+        <value>true</value>
+    </property>
+
+    <property>
+      <name>dfs.support.append</name>
+      <value>true</value>
+    </property>
+
+    <property>
+      <name>dfs.support.broken.append</name>
+      <value>true</value>
+    </property>
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>
+                /disk1/hadoop/hdfs-data/datanode,
+                /disk2/hadoop/hdfs-data/datanode,
+                /disk3/hadoop/hdfs-data/datanode,
+                /disk4/hadoop/hdfs-data/datanode,
+                /disk5/hadoop/hdfs-data/datanode,
+                /disk6/hadoop/hdfs-data/datanode,
+                /disk7/hadoop/hdfs-data/datanode,
+                /disk8/hadoop/hdfs-data/datanode,
+                /disk9/hadoop/hdfs-data/datanode,
+                /disk10/hadoop/hdfs-data/datanode,
+                /disk11/hadoop/hdfs-data/datanode,
+                /disk12/hadoop/hdfs-data/datanode
+        </value>
+        <description>Comma separated list of paths on the local filesystem of a DataNode where it should store its blocks.</description>
+    </property>
+
+    <property>
+       <name>dfs.nameservices</name>
+       <value>f04</value>
+    </property>
+
+    <property>
+        <name>dfs.ha.namenodes.f04</name>
+        <value>nn1,nn2</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.http-address.f04.nn1</name>
+        <value>f04:50070</value>
+    </property>
+
+    <property>
+       <name>dfs.namenode.http-address.f04.nn2</name>
+       <value>f05:50070</value>
+    </property>
+
+    <property>
+       <name>dfs.namenode.rpc-address.f04.nn1</name>
+       <value>f04:8020</value>
+    </property>
+
+    <property>
+       <name>dfs.namenode.rpc-address.f04.nn2</name>
+       <value>f05:8020</value>
+    </property>
+
+    <property>
+      <name>dfs.namenode.shared.edits.dir</name>
+      <value>qjournal://dx-pipe-journalnode1-online:8485;dx-pipe-journalnode2-online:8485;dx-pipe-journalnode3-online:8485;dx-pipe-journalnode4-online:8485;dx-pipe-journalnode5-online:8485/f04</value>
+    </property>
+
+    <property>
+      <name>dfs.client.failover.proxy.provider.f04</name>
+      <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+    </property>
+
+    <property>
+      <name>dfs.ha.fencing.methods</name>
+      <value>
+             sshfence
+             shell(/home/maintain/bin/true.sh)
+      </value>
+    </property>
+
+    <property>
+       <name>dfs.ha.automatic-failover.enabled</name>
+       <value>true</value>
+    </property>
+
+    <property>
+      <name>dfs.ha.fencing.ssh.private-key-files</name>
+      <value>/home/maintain/.ssh/id_dsa</value>
+    </property>
+
+    <property>
+      <name>dfs.datanode.fsdataset.volume.choosing.policy</name>
+      <value>org.apache.hadoop.hdfs.server.datanode.fsdataset.AvailableSpaceVolumeChoosingPolicy</value>
+    </property>
+
+    <property>
+      <name>dfs.namenode.handler.count</name>
+      <value>80</value>
+    </property>
+
+    <property>
+      <name>dfs.datanode.handler.count</name>
+      <value>8</value>
+    </property>
+
+    <property>
+      <name>dfs.balance.bandwidthPerSec</name>
+      <value>30000000</value>
+      <description> Specifies the maximum bandwidth that each datanode can utilize for the balancing purpose in term of the number of bytes per second. </description>
+    </property>
+
+</configuration>
