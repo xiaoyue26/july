@@ -63,7 +63,7 @@ public class OJ404 {
     public int sumOfLeftLeaves_other_stack(TreeNode root) {
         if (root == null) return 0;
         int ans = 0;
-        Deque<TreeNode> stack = new LinkedList<TreeNode>();
+        Deque<TreeNode> stack = new LinkedList<>();
         stack.push(root);
 
         while (!stack.isEmpty()) {
