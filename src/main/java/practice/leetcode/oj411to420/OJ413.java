@@ -4,6 +4,7 @@ package practice.leetcode.oj411to420;
  * @author xiaoyue26
  */
 public class OJ413 {
+    private volatile OJ412 next;
     public int numberOfArithmeticSlices(int[] A) {
         if (A == null || A.length < 3) {
             return 0;
@@ -31,8 +32,7 @@ public class OJ413 {
         System.out.println(obj.numberOfArithmeticSlices(new int[]{
                 1, 2, 3, 4
         }));//3
-        System.out.println(obj.numberOfArithmeticSlices(new int[]{
-                1, 2, 3, 4
-        }));//3
+        System.out.println(obj.next);
+
     }
 }
