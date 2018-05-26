@@ -9,12 +9,12 @@ public class OJ416 {
         for (int n : nums) {
             sum += n;
         }
+        if ((sum & 1) == 1) {
+            return false;
+        }
         int counters[] = new int[101];
         for (int n : nums) {
             counters[n]++;
-        }
-        if ((sum & 1) == 1) {
-            return false;
         }
         int target = sum / 2;
         return dfs(counters, target);
