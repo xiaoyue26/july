@@ -24,7 +24,13 @@ public class MD5Test {
     }
 
     public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        System.out.println(MD5Test.md5("there"));
+        String input = "123-test01";
+        String afterMd5 = md5(input);
+        String first15 = afterMd5.substring(0, 15);
+        Long base16 = Long.valueOf(first15, 16);
+        System.out.println(base16 % 100);
+
+
         //d850f04cdb48312a9be171e214c0b4ee
         //d850f04cdb48312a9be171e214c0b4ee
     }
