@@ -11,7 +11,7 @@ public class OJ424_others {
         for (int end = 0; end < len; end++) {
             maxCount = Math.max(maxCount, ++count[s.charAt(end) - 'A']);
             while (end - start + 1 - maxCount > k) {// 滑动窗口头部
-                count[s.charAt(start) - 'A']--;
+                count[s.charAt(start) - 'A']--;// start
                 start++;
             }
             maxLength = Math.max(maxLength, end - start + 1);
