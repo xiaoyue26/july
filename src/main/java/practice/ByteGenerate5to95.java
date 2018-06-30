@@ -82,7 +82,7 @@ public class ByteGenerate5to95 {
             tmp = 0;
             for (int j = 0; j < 8; j++) {
                 if (random.nextInt(100) < percent) {
-                    tmp &= (1 << j);
+                    tmp |= (1 << j);
                 }
             }
             data[i] = (byte) tmp;
