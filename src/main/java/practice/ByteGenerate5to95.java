@@ -81,7 +81,7 @@ public class ByteGenerate5to95 {
         for (int i = 0; i < data.length; i++) {
             tmp = 0;
             for (int j = 0; j < 8; j++) {
-                if (random.nextInt(100) < percent) {
+                if (random.nextInt(1000) < percent) {
                     tmp |= (1 << j);
                 }
             }
@@ -221,9 +221,11 @@ public class ByteGenerate5to95 {
 
         //writeWithTransferTo();
 
-        for (int i = 5; i <= 95; i += 5) {
+        /*for (int i = 5; i <= 95; i += 5) {
             writeWithMappedByteBuffer(i);
-        }
+        }*/
+        writeWithMappedByteBuffer(1);
+        writeWithMappedByteBuffer(11);
 
     }
 
