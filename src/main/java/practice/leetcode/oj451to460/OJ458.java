@@ -9,14 +9,8 @@ import static java.lang.Math.log;
 
 
 public class OJ458 {
-    public int poorPigs(int buckets, int minutesToDie, int minutesToTest) {
-        int times = minutesToTest / minutesToDie;
-        double t = 1 / (double) times;
-        double step = Math.pow(buckets, t);
-        return (int) Math.ceil(step);
-    }
 
-    public int poorPigs2(int buckets, int minutesToDie, int minutesToTest) {
+    public int poorPigs(int buckets, int minutesToDie, int minutesToTest) {
         return (int) ceil(log(buckets) / log(minutesToTest / minutesToDie + 1));
     }
 
@@ -46,6 +40,7 @@ public class OJ458 {
     public static void main(String[] args) {
         OJ458 obj = new OJ458();
         System.out.println(obj.poorPigs(1000, 15, 60));
+        System.out.println(obj.poorPigs(16, 1, 2));//3
 
     }
 }
