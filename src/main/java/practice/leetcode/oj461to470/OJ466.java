@@ -2,7 +2,20 @@ package practice.leetcode.oj461to470;
 
 /**
  * @author xiaoyue26
- */
+ * 扫n1遍s1,其中s2出现了x次,
+ * 则结果应该是x/n2次。
+ *
+ * 扫的过程中,大概率有重复（循环）模式,可以利用。
+ *
+ * s1="abacb", n1=6
+ * s2="bcaa", n2=1
+ * 第0次扫完s1后,需要的下一个字符是b,也就是下标0；
+ * 第1次扫完s1后,需要的下一个字符是a,也就是下标2；
+ * 第2次扫完s1后,需要的下一个字符是c,也就是下标1；
+ * 第3次扫完s1后,需要的下一个字符是a,也就是下标2；// 出现循环
+ *
+ * 抽屉原理,如果扫的次数够多,一定会出现循环。
+ * */
 public class OJ466 {
     public int getMaxRepetitions(String s1, int n1, String s2, int n2) {
         int[] repeatCount = new int[s2.length() + 1];
