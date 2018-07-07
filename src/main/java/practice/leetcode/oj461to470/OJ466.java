@@ -4,18 +4,18 @@ package practice.leetcode.oj461to470;
  * @author xiaoyue26
  * 扫n1遍s1,其中s2出现了x次,
  * 则结果应该是x/n2次。
- *
+ * <p>
  * 扫的过程中,大概率有重复（循环）模式,可以利用。
- *
+ * <p>
  * s1="abacb", n1=6
  * s2="bcaa", n2=1
  * 第0次扫完s1后,需要的下一个字符是b,也就是下标0；
  * 第1次扫完s1后,需要的下一个字符是a,也就是下标2；
  * 第2次扫完s1后,需要的下一个字符是c,也就是下标1；
  * 第3次扫完s1后,需要的下一个字符是a,也就是下标2；// 出现循环
- *
+ * <p>
  * 抽屉原理,如果扫的次数够多,一定会出现循环。
- * */
+ */
 public class OJ466 {
     public int getMaxRepetitions(String s1, int n1, String s2, int n2) {
         int[] repeatCount = new int[s2.length() + 1];
@@ -42,7 +42,7 @@ public class OJ466 {
                     int prefixCount = repeatCount[start];
                     // (start,k]之间增长量（每个周期增长量）.
                     // 其中: (k - start)=>周期的宽度； (n1 - start) / (k - start): 有几个周期
-                    int patternCount = (repeatCount[k] - repeatCount[start]) * (n1 - start) / (k - start);
+                    int patternCount = (n1 - start) / (k - start) * (repeatCount[k] - repeatCount[start]);
                     // n个周期后,剩下不足周期的部分: (n1 - start) % (k - start)
                     int suffixCount = repeatCount[start + (n1 - start) % (k - start)] - repeatCount[start];
                     return (prefixCount + patternCount + suffixCount) / n2;
