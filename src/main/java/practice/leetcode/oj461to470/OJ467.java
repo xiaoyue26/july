@@ -6,6 +6,11 @@ package practice.leetcode.oj461to470;
  * <p>
  * 状态定义:
  * 以x结尾的最大递增子串长度
+ *
+ * 原理:
+ * 合法子串的状态可以仅由(结尾字符x,长度len)确定。
+ * x相同时, len更大的可以完全覆盖len更小的解集
+ *
  */
 public class OJ467 {
     public int findSubstringInWraproundString(String p) {
