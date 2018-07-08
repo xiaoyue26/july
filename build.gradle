@@ -90,6 +90,8 @@ dependencies {
     compile(group: 'org.apache.curator', name: 'curator-client', version: '4.0.0') {
         exclude(group: 'org.apache.zookeeper', module: 'zookeeper')
     }
+    // https://mvnrepository.com/artifact/cglib/cglib
+    compile group: 'cglib', name: 'cglib', version: '3.2.7'
 
 
 }
