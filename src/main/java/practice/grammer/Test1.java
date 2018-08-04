@@ -29,15 +29,28 @@ public class Test1 {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        ConcurrentLinkedQueue e ;
+        ConcurrentLinkedQueue e;
 
 
+    }
+
+    private Runnable task = new Runnable() {
+        @Override
+        public void run() {
+            System.out.println("task running ");
+        }
+    };
+
+    private void test2() {
+        ExecutorService es = Executors.newFixedThreadPool(1);
+        es.submit(task);
+        es.submit(task);
     }
 
     public static void main(String[] args) {
         Test1 obj = new Test1();
         System.out.println(1 / (Math.pow(2, 32)) > 0);
-        //obj.test1();
+        obj.test2();
         System.out.println("there");
     }
 }
