@@ -1,9 +1,6 @@
 package practice.forkjoin;
 
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.Future;
-import java.util.concurrent.RecursiveTask;
+import java.util.concurrent.*;
 
 /**
  * @author xiaoyue26
@@ -41,7 +38,10 @@ public class CountTask extends RecursiveTask<Integer> {
     }
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        ForkJoinPool forkJoinPool = new ForkJoinPool();
+        ForkJoinPool forkJoinPool = new ForkJoinPool();// 可以传入并行度参数, 不传则默认从Runtime取核数作为并行度
+        // Runtime.getRuntime().availableProcessors()
+
+
         CountTask task = new CountTask(1, 10);// RecursiveTask=> ForkJoinTask
         Future<Integer> res = forkJoinPool.submit(task);// ForkJoinTask
         System.out.print(res.get());
