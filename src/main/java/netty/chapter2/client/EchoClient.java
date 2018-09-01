@@ -1,6 +1,9 @@
 package netty.chapter2.client;
 
 import io.netty.bootstrap.Bootstrap;
+import io.netty.buffer.ByteBufAllocator;
+import io.netty.buffer.ByteBufHolder;
+import io.netty.buffer.ByteBufUtil;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;
@@ -59,5 +62,8 @@ public class EchoClient {
         final String host = args[0];
         final int port = Integer.parseInt(args[1]);
         new EchoClient(host, port).start();
+        ByteBufHolder bbh;
+        ByteBufUtil util;
+        ByteBufAllocator allocator;
     }
 }
