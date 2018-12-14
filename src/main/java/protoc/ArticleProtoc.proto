@@ -1,0 +1,12 @@
+syntax = "proto2";
+
+package protoc;
+
+// option java_package = "protoc";
+
+message Article {
+    required int32 article_id = 1;
+    required bytes uv = 2;
+    optional string article_excerpt = 3;
+    repeated string article_picture = 4;
+}

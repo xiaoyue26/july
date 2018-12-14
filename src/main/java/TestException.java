@@ -19,6 +19,10 @@ public class TestException {
     public static void main(String[] args) {
         try {
             System.out.println(fun1());
+            while(true){
+                System.out.println(fun1());
+                Thread.sleep(10000);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
