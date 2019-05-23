@@ -10,27 +10,23 @@ import java.util.Set;
  */
 public class OJ003 {
     public int lengthOfLongestSubstring2(String s) {
-        if (s == null || s.equals("")) {
+        if (s == null || "".equals(s)) {
             return 0;
         }
-        int max = 1;
-        char[] chars = s.toCharArray();
-        for (int i = 0; i < chars.length; i++) {
-            Set<Character> hashSet = new HashSet<>();
-            int curMax = 1;
-            hashSet.add(chars[i]);
-            for (int j = i + 1; j < chars.length; j++) {
-                if (hashSet.contains(chars[j])) {
-                    break;
-                }
-                curMax += 1;
-                hashSet.add(chars[j]);
+        int maxLen = 1, begin = 0;
+        Map<Character, Integer> visited = new HashMap<>();
+        visited.put(s.charAt(0), 0);
+        for (int i = 1; i < s.length(); i++) {
+            Integer pos = visited.get(s.charAt(i));
+            if (pos == null || pos < begin) { // new char:
+                maxLen = Math.max(maxLen, i - begin + 1);
+                visited.put(s.charAt(i), i);
+            } else { // 重新开始: 无需清理visited,因为上面有限定pos<begin的也算新增
+                begin = pos + 1;
+                visited.put(s.charAt(i), i);
             }
-            max = Math.max(curMax, max);
         }
-
-
-        return max;
+        return maxLen;
     }
 
     public int lengthOfLongestSubstring(String input) {
