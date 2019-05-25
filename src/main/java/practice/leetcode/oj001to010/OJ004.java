@@ -4,83 +4,79 @@ package practice.leetcode.oj001to010;
  * Created by xiaoyue26 on 17/10/31.
  */
 public class OJ004 {
-    public double findMedianSortedArrays(int[] num1, int[] num2) {
-        if (num1 == null || num1.length == 0) {//这些可以精简归化到单个数组找第k元素中. 但如果可以重用也可以留着.
-            return findMedianSortedArrays(num2);
-        }
-        if (num2 == null || num2.length == 0) {
-            return findMedianSortedArrays(num1);
-        }
-        int len = num1.length + num2.length;
-        if (len % 2 == 0) {
-            double median1 = find_k_th(num1, 0, num1.length - 1
-                    , num2, 0, num2.length - 1, len / 2);
-            double median2 = find_k_th(num1, 0, num1.length - 1
-                    , num2, 0, num2.length - 1, len / 2 - 1);
-            return (median1 + median2) / 2;
-        } else {
-            return find_k_th(num1, 0, num1.length - 1
-                    , num2, 0, num2.length - 1, len / 2);
-        }
-    }
-
+    // @desperate:
     private double findMedianSortedArrays(int[] num) {
         if (num == null || num.length == 0) {
             throw new RuntimeException("empty num has no median");
         }
         if (num.length % 2 == 0) {
-            return ((double)num[num.length / 2] + (double)num[num.length / 2 - 1]) / 2;
+            return ((double) num[num.length / 2] + (double) num[num.length / 2 - 1]) / 2;
         }
         return num[num.length / 2];
     }
 
-
-    private double find_k_th(int[] num1, int begin1, int end1, int[] num2, int begin2, int end2, int k) {
-        if (end1 - begin1 < 0) {
-            return find_k_th(num2, begin2, end2, k);
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        if (nums1 == null || nums2 == null || (nums1.length == 0 && nums2.length == 0)) {
+            return 0;
         }
-        if (end2 - begin2 < 0) {
-            return find_k_th(num1, begin1, end1, k);
-
+        int len = nums1.length + nums2.length;
+        if (len % 2 == 0) {// 偶数: len = 2x, return f(x)+f(x+1)
+            return ((double) findXth(len / 2, nums1, 0, nums1.length - 1, nums2, 0, nums2.length - 1)
+                    + (double) findXth(len / 2 + 1, nums1, 0, nums1.length - 1, nums2, 0, nums2.length - 1)) / 2;
+        } else {// 奇数: len=2x+1 return f(x+1)
+            return findXth(len / 2 + 1, nums1, 0, nums1.length - 1, nums2, 0, nums2.length - 1);
         }
-        if (k <= 0) {
-            return Math.min(num1[begin1], num2[begin2]);
-        }
-        // keeep num1 shorter:
-        if (end1 - begin1 > end2 - begin2) {
-            return find_k_th(num2, begin2, end2, num1, begin1, end1, k);
-        }
-        int part_all = k + 1;
-        int part1 = Math.min(end1 - begin1 + 1, part_all / 2);
-        int part2 = part_all - part1;
-        int k1 = begin1 + part1 - 1;
-        int k2 = begin2 + part2 - 1;
-        int m1 = num1[k1];
-        int m2 = num2[k2];
-        if (m1 < m2) {
-            return find_k_th(num1, k1 + 1, end1, num2, begin2, k2, k - part1);
-        } else if (m1 > m2) {
-            return find_k_th(num1, begin1, k1, num2, k2 + 1, end2, k - part2);
-        } else { // m1==m2
-            return m1;
-        }
-
-
     }
 
-    private double find_k_th(int[] num, int begin, int end, int k) {
-        if (end - begin < k) {
-            throw new RuntimeException("k out of range");
+    // base 1,找第x个数
+    private int findXth(int x, int[] nums1, int begin1, int end1, int[] nums2, int begin2, int end2) {
+        if (begin1 > end1) {//nums1 empty
+            return nums2[begin2 + x - 1];
         }
-        return num[begin + k];
+        if (begin2 > end2) {// nums2 empty
+            return nums1[begin1 + x - 1];
+        }
+        if (x == 1) {
+            return Math.min(nums1[begin1], nums2[begin2]);
+        }
+
+        int m = end1 - begin1 + 1;
+        int n = end2 - begin2 + 1;
+        if (x == m + n) {
+            return Math.max(nums1[end1], nums2[end2]);
+        }
+        // int k1 = begin1 + m / 2;
+        // int k2 = begin2 + n / 2;
+        if (end1 - begin1 > end2 - begin2) {// keep nums1 shorter
+            return findXth(x, nums2, begin2, end2, nums1, begin1, end1);
+        }
+        int part1 = Math.min(end1 - begin1 + 1, x / 2);
+        int part2 = x - part1;
+        int k1 = begin1 + part1 - 1;
+        int k2 = begin2 + part2 - 1;
+        if (nums1[k1] < nums2[k2]) {
+            return findXth(x - part1, nums1, k1 + 1, end1, nums2, begin2, k2);
+        } else if (nums1[k1] > nums2[k2]) {
+            return findXth(x - part2, nums1, begin1, k1, nums2, k2 + 1, end2);
+        } else { // nums1[k1]==nums2[k2]
+            return nums1[k1];
+        }
     }
 
     public static void main(String[] args) {
         OJ004 obj = new OJ004();
         int num1[] = {};
-        int num2[] = {2,3};
+        int num2[] = {2, 3};
         double res = obj.findMedianSortedArrays(num1, num2);
         System.out.println(res);
+        System.out.println(obj.findMedianSortedArrays(new int[]{1, 3}, new int[]{2}));
+        System.out.println(obj.findMedianSortedArrays(new int[]{1, 2}, new int[]{3, 4}));
+        System.out.println(obj.findMedianSortedArrays(new int[]{}, new int[]{3, 4}));
+        System.out.println(obj.findMedianSortedArrays(new int[]{1, 1}, new int[]{1, 1}));
+        System.out.println(obj.findMedianSortedArrays(new int[]{2}, new int[]{1, 3, 4}));
+        System.out.println(obj.findMedianSortedArrays(new int[]{}, new int[]{}));
+        System.out.println(obj.findMedianSortedArrays(new int[]{}, null));
+        System.out.println(obj.findMedianSortedArrays(null, null));
         //System.out.println(-1 / 2);
 
     }
