@@ -1,49 +1,65 @@
 package practice.leetcode;
 
 
+import practice.leetcode.utils.ListNode;
+
+import java.util.*;
+
 /**
  * @author xiaoyue26
  */
 public class CurrentTest {
-    public String convert(String s, int numRows) {
-        if (numRows < 2)
-            return s;
-        int maxn = s.length();
-        StringBuilder result = new StringBuilder();
-        int interval[] = new int[numRows];
-        for (int i = 0; i < interval.length - 1; i++) {
-            interval[i] = 2 * (numRows - i - 1);
-        }
-        interval[interval.length - 1] = 2 * (numRows - 1);
 
-        int index;
-        int index2;
-        for (int i = 0; i < numRows; i++) {
-            index = i;
-            index2 = i + interval[i];
-            while (index < maxn) {
-                char c = s.charAt(index);
-                result.append(c);
-                index += 2 * (numRows - 1);
-                if (i != 0 && i != numRows - 1) {
-                    if (index2 < maxn) {
-                        c = s.charAt(index2);
-                        result.append(c);
-                        index2 += 2 * (numRows - 1);
-                    }
-                }
+    public ListNode mergeKLists(ListNode[] lists) {
+        if (lists == null || lists.length == 0) {
+            return null;
+        }
+        if (lists.length == 1) {
+            return lists[0];
+        }
+        ListNode dumpHead = new ListNode(-1);
+
+        PriorityQueue<ListNode> heap = new PriorityQueue<>(lists.length, (a, b) -> {
+            if (a == null) {
+                return 1;
+            } else if (b == null) {
+                return -1;
+            } else {
+                return a.val - b.val;
             }
-
+        });
+        for (ListNode l : lists) {
+            if (l != null) {
+                heap.offer(l);
+            }
         }
-
-        return result.toString();
+        ListNode curPre = dumpHead;
+        while (!heap.isEmpty()) {
+            curPre.next = heap.poll();
+            if (heap.isEmpty()) {
+                break; // quick out
+            }
+            curPre = curPre.next;
+            if (curPre.next != null) {
+                heap.offer(curPre.next);
+            }
+        }
+        return dumpHead.next;
     }
 
 
     public static void main(String[] args) {
         CurrentTest obj = new CurrentTest();
-        System.out.println(obj.convert("PAYPALISHIRING", 3));// PAHNAPLSIIGYIR
-        System.out.println(obj.convert("PAYPALISHIRING", 4));// PINALSIGYAHRPI
-
+        ListNode[] list = new ListNode[]{
+                new ListNode(Arrays.asList(1, 4, 5))
+                , new ListNode(Arrays.asList(1, 3, 4))
+                , new ListNode(Arrays.asList(2, 6))
+        };
+        /** 1->4->5,
+         1->3->4,
+         2->6*/
+        // 1->1->2->3->4->4->5->6
+        System.out.println(obj.mergeKLists(list));
     }
+
 }

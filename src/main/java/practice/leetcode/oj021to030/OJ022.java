@@ -51,6 +51,6 @@ public class OJ022 {
     public static void main(String[] args) {
         OJ022 obj = new OJ022();
         System.out.println(obj.generateParenthesis(3));
-        System.out.println(obj.generateParenthesis(4));
+        // System.out.println(obj.generateParenthesis(4));
     }
 }

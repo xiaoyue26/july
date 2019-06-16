@@ -5,67 +5,54 @@ package practice.leetcode.oj001to010;
  */
 public class OJ008 {
     public int myAtoi(String str) {
-        if (str == null)
+        if (str == null || "".equals(str)) {
             return 0;
-        int max = Integer.MAX_VALUE / 10;
-        int min = Integer.MIN_VALUE / 10;
-        int result = 0;
-        boolean beginDigit = false;
-        boolean hasFlag = false;
-        boolean flag = true;
-        boolean overflow = false;
-        for (int i = 0; i < str.length(); i++) {
+        }
+        int cur = 0;
+        while (cur < str.length() && str.charAt(cur) == ' ') cur++;
+        int res = 0;
+        int resIndex = 0;
+        boolean bigThan0 = true;
+        for (int i = cur; i < str.length(); i++) {
             char c = str.charAt(i);
-            if (c == '-' || c == '+') {
-                if (beginDigit) {
-                    return 0;
+            if (c >= '0' && c <= '9') {
+                if (res > Integer.MAX_VALUE / 10) {
+                    return Integer.MAX_VALUE;
                 }
-                if (hasFlag) {
-                    return 0;
+                if (res < Integer.MIN_VALUE / 10) {
+                    return Integer.MIN_VALUE;
                 }
-                hasFlag = true;
-                if (c == '-') {
-                    flag = false;
+                if (bigThan0) {
+                    res = res * 10 + c - '0';
+                    if (res < 0) {
+                        return Integer.MAX_VALUE;
+                    }
+                } else {
+                    res = res * 10 + '0' - c;
+                    if (res > 0) {
+                        return Integer.MIN_VALUE;
+                    }
                 }
-            } else if (Character.isDigit(c)) {
-                beginDigit = true;
-                if (result > max) {
-                    overflow = true;
+                resIndex++;
+            } else if (c == '-') {
+                if (resIndex == 0) {
+                    bigThan0 = false;
+                } else {
+                    return res;
                 }
-                result *= 10;
-                result += c - '0';
-                if (result < 0) {
-                    overflow = true;
+                resIndex++;
+            } else if (c == '+') {
+                if (resIndex == 0) {
+                    bigThan0 = true;
+                } else {
+                    return res;
                 }
-            }
-            else if(c==' '||c=='\t'){
-                if(beginDigit){
-                    break;
-                }
-                if(hasFlag){
-                    return 0;
-                }
-                else{
-                    continue;
-                }
-            }else if(beginDigit||hasFlag){
-                break;
-            }
-            else{
-                return 0;
-            }
-        }
-        if (!flag) {
-            result = -result;
-        }
-        if (overflow) {
-            if (flag) {
-                return Integer.MAX_VALUE;
+                resIndex++;
             } else {
-                return Integer.MIN_VALUE;
+                return res;
             }
         }
-        return result;
+        return res;
     }
 
     public static void main(String[] args) {
@@ -73,5 +60,14 @@ public class OJ008 {
         //String str = "  b1234";
         String str = "  14b";
         System.out.println(obj.myAtoi(str));
+
+        System.out.println(obj.myAtoi(" 42"));// permit head space
+        System.out.println(obj.myAtoi("-42"));
+        System.out.println(obj.myAtoi("4193 with words")); // 4193
+        System.out.println(obj.myAtoi("weords and 987")); // 0
+        System.out.println(obj.myAtoi("-91283472332")); // overflow Int.Min
+        System.out.println(obj.myAtoi("91283472332")); // overflow Int.Max
+        System.out.println(obj.myAtoi(" +42"));// permit head space
+        System.out.println(obj.myAtoi(" -2147483647"));
     }
 }

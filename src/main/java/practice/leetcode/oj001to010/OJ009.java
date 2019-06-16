@@ -49,5 +49,11 @@ public class OJ009 {
         System.out.println(obj.isPalindrome2(131));
         System.out.println(obj.isPalindrome(1331));
         System.out.println(obj.isPalindrome2(1331));
+        System.out.println(obj.isPalindrome(121));
+        System.out.println(obj.isPalindrome(-121));
+        System.out.println(obj.isPalindrome(10));
+        System.out.println(obj.isPalindrome(101));
+        System.out.println(obj.isPalindrome(1010));
+        System.out.println(obj.isPalindrome(0));
     }
 }

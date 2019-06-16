@@ -9,69 +9,50 @@ import java.util.Collections;
 public class OJ016 {
     public int threeSumClosest(int[] nums, int target) {
         if (nums == null || nums.length < 3) {
-            return 0;
+            return Integer.MIN_VALUE;
         }
-        int gap = target - nums[0] - nums[1] - nums[2];
         Arrays.sort(nums);
-        for (int i = 0; i <= nums.length - 3; i++) {
+        int minGap = Integer.MAX_VALUE;
+        int res = Integer.MAX_VALUE;
+        for (int i = 0; i < nums.length - 2; i++) {
             if (i > 0 && nums[i] == nums[i - 1]) {
                 continue;
             }
-            for (int j = nums.length - 1; j >= i + 2; --j) {
-                if (j < nums.length - 1 && nums[j] == nums[j + 1]) {
-                    continue;
-                }
-                int num1 = nums[i];
-                int num2 = nums[j];
-                int num3 = target - num1 - num2;
-                if (num3 > num2) {
-                    int curGap = num3 - nums[j - 1];
-                    if (Math.abs(curGap) < Math.abs(gap)) {
-                        gap = curGap;
-                    }
-                    break;
-                } else if (num3 < num1) {
-                    int curGap = num3 - nums[i + 1];
-                    if (Math.abs(curGap) < Math.abs(gap)) {
-                        gap = curGap;
-                    }
-                    continue;
-                } else { // num1<=num3<=num2
-                    int curGap = minGap(nums, i + 1, j - 1, num3);
-                    if (curGap == 0) {
-                        return target;
-                    }
-                    if (Math.abs(curGap) < Math.abs(gap)) {
-                        gap = curGap;
-                    }
-                }
+            int rest = target - nums[i];
+            int tmp = twoSumClosest(nums, i + 1, nums.length - 1, rest);
+            if (tmp == rest) {
+                return target;
+            }
+            if (Math.abs(tmp + nums[i] - target) < minGap) {
+                minGap = Math.abs(tmp + nums[i] - target);
+                res = tmp + nums[i];
             }
         }
-        return target - gap;
+
+        return res;
     }
 
-    private int minGap(int[] nums, int begin, int end, int num) {
-        int gap = Integer.MAX_VALUE;
-        if (begin > end) {
-            return gap;
+    private int twoSumClosest(int[] nums, int begin, int end, int target) {
+        int minGap = Integer.MAX_VALUE;
+        int res = Integer.MAX_VALUE;
+        int i = begin, j = end, k;
+        while (i < j) {
+            k = nums[i] + nums[j];
+            if (Math.abs(k - target) < minGap) {
+                minGap = Math.abs(k - target);
+                res = nums[i] + nums[j];
+            }
+            if (k > target) {
+                --j;
+            } else if (k < target) {
+                ++i;
+            } else { // (k == target)
+                return target;
+            }
+
+
         }
-        // 2分查找
-        while (begin <= end) {
-            int mid = begin + (end - begin) / 2;
-            int curGap = num - nums[mid];
-            if (curGap == 0) {
-                return 0;
-            }
-            if (Math.abs(curGap) < Math.abs(gap)) {
-                gap = curGap;
-            }
-            if (nums[mid] < num) {
-                begin = mid + 1;
-            } else if (nums[mid] > num) {
-                end = mid - 1;
-            }
-        }
-        return gap;
+        return res;
     }
 
     public static void main(String[] args) {
@@ -84,10 +65,10 @@ public class OJ016 {
         System.out.println(Math.abs(Integer.MAX_VALUE));
         System.out.println(Long.MAX_VALUE);
         System.out.print("mid:");
-        int mid = (Integer.MAX_VALUE+ Integer.MAX_VALUE) >>> 1;
+        int mid = (Integer.MAX_VALUE + Integer.MAX_VALUE) >>> 1;
         System.out.println(mid);
-        System.out.println(Integer.MAX_VALUE+ Integer.MAX_VALUE);
-        System.out.println(((-1)>>2));
-        System.out.println(((-1)>>>1));
+        System.out.println(Integer.MAX_VALUE + Integer.MAX_VALUE);
+        System.out.println(((-1) >> 2));
+        System.out.println(((-1) >>> 1));
     }
 }
