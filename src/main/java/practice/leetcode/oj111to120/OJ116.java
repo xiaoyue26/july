@@ -11,6 +11,27 @@ import java.util.Queue;
  * Created by xiaoyue26 on 17/12/19.
  */
 public class OJ116 {
+
+    public Node connect_new(Node root) {
+        
+        Node level_start=root;
+        while(level_start!=null){
+            Node cur=level_start;
+            while(cur!=null){
+                if(cur.left!=null) cur.left.next=cur.right;
+                if(cur.right!=null && cur.next!=null) cur.right.next=cur.next.left;
+                
+                cur=cur.next;
+            }
+            level_start=level_start.left;
+        }
+        return root;
+        
+        
+    }
+
+
+
     public void connect(TreeLinkNode root) {
         Queue<TreeLinkNode> queue = new LinkedList<>();
         TreeLinkNode cur = root, pre = null;
