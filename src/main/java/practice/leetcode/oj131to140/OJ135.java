@@ -15,7 +15,7 @@ public class OJ135 {
                 if (cnt > 0) {
                     res += cnt * (cnt + 1) / 2;
                     if (cnt >= pre) {
-                        res += cnt - pre + 1;
+                        res += cnt + 1 - pre; // 要把pre位置的值从pre提升到cnt+1(也就是提升(cnt+1)-pre)
                     }
                     cnt = 0;
                     pre = 1;
@@ -29,7 +29,7 @@ public class OJ135 {
         if (cnt > 0) {
             res += cnt * (cnt + 1) / 2;
             if (cnt >= pre) {
-                res += cnt - pre + 1;
+                res += cnt + 1 - pre;
             }
         }
 
