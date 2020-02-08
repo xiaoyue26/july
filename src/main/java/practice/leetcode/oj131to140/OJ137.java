@@ -5,6 +5,33 @@ package practice.leetcode.oj131to140;
  * 所有数字3次或1次.
  */
 public class OJ137 {
+    /**
+     * 出现3次或1次;
+     * 第一反应是数10进制每位加和后%3的值,然后拼起来;
+     * 但是10进制比3进制大，所以会损失精度,原来结果是4,取模后就只剩下1了;
+     * <p>
+     * 理想: 3进制求和后取模;
+     * 实际: 基本没有3进制运算符,转换成3进制太耗费时间;
+     * <p>
+     * 折中方案: 2进制求和模3,因为2进制比3小，所以不会损失精度;
+     * 遍历32次,时间不是最优.
+     * 最优的话可以用状态转移,只遍历一次,但是较难写出状态转移方程.
+     */
+    public int singleNumber_3ms(int[] nums) {
+        int res = 0;
+        for (int i = 0; i < 32; i++) {
+            int sum = 0;
+            for (int num : nums) {
+                if (((num >> i) & 1) == 1) sum++;
+            }
+            sum %= 3;
+            res |= (sum << i);
+        }
+        return res;
+    }
+
+    
+    
     public int singleNumber_way1(int[] nums) {// k个计数器. 最多Integer.MAX_VALUE个. 空间O(K)
         if (nums == null || nums.length < 1) {
             return 0;
