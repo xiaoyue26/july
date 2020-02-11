@@ -101,4 +101,34 @@ public class OJ099 {
         root = new TreeNode("3,9,20,#,#,15,21");
         obj.morrisInorderTravel(root);
     }
+    // 方法2，通过dfs中序遍历寻找
+    TreeNode first,second,pre;
+    
+    public void recoverTree(TreeNode root) {
+        first = null;
+        second = null;
+        pre = null;
+        mid_dfs(root);
+        int tmp = first.val;
+        first.val = second.val;
+        second.val = tmp;
+    }
+    
+    private void mid_dfs(TreeNode cur) {
+        
+        if (cur == null)
+            return;
+            
+        mid_dfs(cur.left);
+        if (first == null && pre!=null &&  pre.val >= cur.val) {
+            first = pre;
+        }
+        if (first != null && pre.val >= cur.val) {
+            second = cur;
+        }        
+        pre = cur;
+
+        mid_dfs(cur.right);
+    }
+    
 }
