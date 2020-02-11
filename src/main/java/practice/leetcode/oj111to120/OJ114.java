@@ -34,6 +34,22 @@ public class OJ114 {
 
     }
 
+   private TreeNode pre;
+
+   public void flatten_dfs(TreeNode root) {
+     if (root == null)return;
+     pre=null;
+     dfs(root);
+   }
+   public void dfs(TreeNode cur) {
+     if (cur == null)return;
+     dfs(cur.right);
+     dfs(cur.left);
+     cur.right = pre;
+     cur.left = null;
+     pre = cur;
+    }
+
     public static void main(String[] args) {
         OJ114 obj = new OJ114();
         TreeNode root = new TreeNode("1,2,5,3,4,#,6");
