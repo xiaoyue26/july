@@ -18,9 +18,12 @@ public class OJ064 {
         for (int i = 1; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if (j == 0) {
-                    dp[j] = grid[i][j] + dp[j];
+                    // dp[j] = grid[i][j] + dp[j];
+                    dp[0] = grid[i][0] + dp[0];
                 } else {
-                    dp[j] = Math.min(dp[j - 1] + grid[i][j], dp[j] + grid[i][j]);
+                    dp[j] = Math.min(dp[j - 1] // 从左边来
+                            , dp[j])// 从上面来
+                            + grid[i][j];
                 }
             }
         }

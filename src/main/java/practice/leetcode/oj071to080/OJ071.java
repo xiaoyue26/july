@@ -88,5 +88,6 @@ public class OJ071 {
         System.out.println(obj.simplifyPath("../"));
         System.out.println(obj.simplifyPath("/..//"));
         System.out.println(obj.simplifyPath("/..."));
+        System.out.println(obj.simplifyPath("a/b/c"));// 处理不了相对路径
     }
 }

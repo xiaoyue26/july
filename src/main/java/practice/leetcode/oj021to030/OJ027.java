@@ -8,19 +8,14 @@ public class OJ027 {
         if (nums == null || nums.length == 0) {
             return 0;
         }
-        int tail;
-        if (nums[0] != val) {
-            tail = 0;
-        } else {
-            tail = -1;
-        }
-        for (int i = 1; i < nums.length; i++) {
+        int tail = -1;
+        for (int i = 0; i < nums.length; i++) {
             if (nums[i] != val) {
                 nums[++tail] = nums[i];
             }
         }
-        return tail + 1;
 
+        return tail + 1;
     }
 
     public static void main(String[] args) {

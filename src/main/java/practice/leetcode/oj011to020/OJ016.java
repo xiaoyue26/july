@@ -47,12 +47,12 @@ public class OJ016 {
             } else if (k < target) {
                 ++i;
             } else { // (k == target)
-                return target;
+                return target;// 精确相等
             }
 
 
         }
-        return res;
+        return res;// 最接近的
     }
 
     public static void main(String[] args) {

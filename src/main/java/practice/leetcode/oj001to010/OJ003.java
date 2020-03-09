@@ -20,11 +20,10 @@ public class OJ003 {
             Integer pos = visited.get(s.charAt(i));
             if (pos == null || pos < begin) { // new char:
                 maxLen = Math.max(maxLen, i - begin + 1);
-                visited.put(s.charAt(i), i);
             } else { // 重新开始: 无需清理visited,因为上面有限定pos<begin的也算新增
                 begin = pos + 1;
-                visited.put(s.charAt(i), i);
             }
+            visited.put(s.charAt(i), i);// 覆盖写pos的最新位置
         }
         return maxLen;
     }

@@ -12,7 +12,7 @@ public class OJ043 {
         if (num1 == null || num1.length() < 1 || num2 == null || num2.length() < 1) {
             return "0";
         }
-        int max = num1.length() + num2.length()+1;
+        int max = num1.length() + num2.length() + 1;
         char[] res = new char[max];
         Arrays.fill(res, '0');
         char ci, cj;

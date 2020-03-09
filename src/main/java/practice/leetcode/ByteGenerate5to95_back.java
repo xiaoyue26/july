@@ -210,7 +210,7 @@ public class ByteGenerate5to95_back {
 
         //writeWithTransferTo();
 
-        writeWithMappedByteBuffer();
+        // writeWithMappedByteBuffer();
     }
 
 }

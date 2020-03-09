@@ -2,12 +2,14 @@ package practice.leetcode.oj001to010;
 
 import practice.leetcode.utils.ListNode;
 
+import java.util.List;
+
 /**
  * Created by xiaoyue26 on 17/10/29.
  * 2. Add Two Numbers
  */
 public class OJ002 {
-    public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+    public static ListNode addTwoNumbersOld(ListNode l1, ListNode l2) {
         ListNode head = new ListNode(0);
         ListNode result = head;
         int sum = 0;
@@ -41,45 +43,6 @@ public class OJ002 {
         return head.next;
     }
 
-    /*private static ListNode long2node(long num) {
-        ListNode l = new ListNode(0);
-        l.next = new ListNode(0);
-        ListNode dumpHead = l;
-        long rest = num;// 也可以直接用num
-        while (rest > 0) {
-            l.next = new ListNode( (int)rest % 10);
-            l = l.next;
-            rest = rest / 10;
-        }
-
-        return dumpHead.next;
-    }
-
-    private static long node2long(ListNode l1) {
-        long sum = 0;
-        long level = 0;
-        while (l1 != null) {
-            sum += Math.pow(10, level) * l1.val;
-            level+=1;
-            l1 = l1.next;
-        }
-        return sum;
-    }
-
-    public static void test1(){// long不够长,装不下这么大的list 9999999991
-        ListNode l1 = new ListNode(2);
-        l1.next = new ListNode(4);
-        l1.next.next = new ListNode(3);
-        ListNode l2 = new ListNode(5);
-        l2.next = new ListNode(6);
-        l2.next.next = new ListNode(4);
-        ListNode res = addTwoNumbers(l1, l2);
-        System.out.println(node2long(res));
-        while (res != null) {
-            System.out.println(res.val);
-            res = res.next;
-        }
-    }*/
     public static void test1() {
         ListNode l1 = new ListNode(1);
         l1.next = new ListNode(9);
@@ -105,9 +68,46 @@ public class OJ002 {
         }
     }
 
+    public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        if (l1 == null) {
+            return l2;
+        }
+        if (l2 == null) {
+            return l1;
+        }
+        ListNode pre = null;
+        ListNode head = l1;
+        int carry = 0, cur;
+        while (l1 != null && l2 != null) {
+            cur = l1.val + l2.val + carry;
+            carry = cur / 10;
+            cur %= 10;
+            l1.val = cur;
+            pre = l1;
+            l1 = l1.next;
+            l2 = l2.next;
+        }
+        if (l1 == null) {
+            pre.next = l2;
+        }
+        l1 = pre.next;
+        while (carry > 0 && l1 != null) {
+            cur = l1.val + carry;
+            carry = cur / 10;
+            cur %= 10;
+            l1.val = cur;
+            pre = l1;
+            l1 = l1.next;
+        }
+        if (carry > 0) { // l1==null
+            pre.next = new ListNode(carry);
+        }
+        return head;
+    }
+
     public static void main(String[] args) {
         test1();
-        //test2();
+        // test2();
 
     }
 }

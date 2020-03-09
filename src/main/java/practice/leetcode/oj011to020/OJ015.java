@@ -15,7 +15,7 @@ public class OJ015 {
             if (i > 0 && nums[i] == nums[i - 1]) {
                 continue;
             }
-            twoSum(nums, i + 1, 0 - nums[i], res);
+            twoSum(nums, i + 1, 0 - nums[i], res);// 使用副作用
         }
         return res;
     }
@@ -31,7 +31,7 @@ public class OJ015 {
                 --j;
             } else if (nums[i] + nums[j] < target) {
                 ++i;
-            } else {
+            } else {// nums[i] + nums[j] == target
                 res.add(Arrays.asList(nums[begin - 1], nums[i], nums[j]));
                 ++i;
                 --j;

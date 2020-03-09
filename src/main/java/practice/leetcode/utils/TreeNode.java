@@ -19,14 +19,14 @@ public class TreeNode {
 
     public TreeNode(String levelString) {
         String[] inS = levelString.split(",");
-        this.val = Integer.valueOf(inS[0]);
+        this.val = Integer.parseInt(inS[0]);
         TreeNode preRoot = this;
         Queue<TreeNode> queue = new LinkedList<>();
         int count = 0;
         for (int i = 1; i < inS.length; i++) {
             TreeNode cur = null;
             if (!inS[i].equals("#")) {
-                cur = new TreeNode(Integer.valueOf(inS[i]));
+                cur = new TreeNode(Integer.parseInt(inS[i]));
             }
             if (count == 0) {
                 count++;

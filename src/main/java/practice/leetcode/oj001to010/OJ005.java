@@ -61,7 +61,8 @@ public class OJ005 {
                 radix[i] = 1;
             }
             // 2.2 拓展radix[i]:
-            while (i - radix[i] >= 0 && i + radix[i] < sb.length() && (sb.charAt(i - radix[i]) == sb.charAt(i + radix[i]))) {
+            while (i - radix[i] >= 0 && i + radix[i] < sb.length()
+                    && (sb.charAt(i - radix[i]) == sb.charAt(i + radix[i]))) {
                 radix[i]++;
             }
             // 2.3 更新center,maxRight:

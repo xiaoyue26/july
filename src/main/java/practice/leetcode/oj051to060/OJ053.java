@@ -20,7 +20,7 @@ public class OJ053 {
         return max;
     }
 
-    public int maxSubArray(int[] nums) {
+    public int maxSubArray_divide(int[] nums) {
         return divideandconquer(nums, 0, nums.length - 1);
     }
     private int divideandconquer(int[] nums, int left, int right) {
@@ -56,6 +56,22 @@ public class OJ053 {
         return max;
     }
 
+    // 简单的贪心解:
+    public int maxSubArray(int[] nums) {
+        int res = 0;
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < nums.length; i++) {
+            if (res < 0) {
+                res = nums[i];
+            } else {
+                res += nums[i];
+            }
+            if (res > max) {
+                max = res;
+            }
+        }
+        return max;
+    }
 
     public static void main(String[] args) {
         OJ053 obj = new OJ053();

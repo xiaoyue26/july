@@ -9,7 +9,7 @@ public class OJ008 {
             return 0;
         }
         int cur = 0;
-        while (cur < str.length() && str.charAt(cur) == ' ') cur++;
+        while (cur < str.length() && str.charAt(cur) == ' ') cur++;// 去头
         int res = 0;
         int resIndex = 0;
         boolean bigThan0 = true;

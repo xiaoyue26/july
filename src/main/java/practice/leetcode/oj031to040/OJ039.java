@@ -10,56 +10,32 @@ import java.util.List;
 public class OJ039 {
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<List<Integer>> res = new ArrayList<>();
-        if (candidates == null || candidates.length < 1) {
-            return res;
-        }
-
         Arrays.sort(candidates);
-
-        for (int i = 0; i < candidates.length; i++) {
-            if (target == candidates[i]) {
-                res.add(Arrays.asList(candidates[i]));
-            } else {
-                List<List<Integer>> curRes = combinationSum(candidates, target - candidates[i], i);
-                for (List<Integer> curRow : curRes) {
-                    List<Integer> row = new ArrayList<>();
-                    row.add(candidates[i]);
-                    row.addAll(curRow);
-                    res.add(row);
-                }
-            }
-        }
-
-
+        dfs(candidates, res, target, new ArrayList<>(), 0);
         return res;
     }
 
-    private List<List<Integer>> combinationSum(int[] candidates, int target, int begin) {//dfs
-        List<List<Integer>> res = new ArrayList<>();
-        if (target <= 0) {
-            return res;
+    private void dfs(int[] candidates, List<List<Integer>> res, int target, List<Integer> cur, int begin) {
+        if (target < 0) {
+            return;
         }
 
         for (int i = begin; i < candidates.length; i++) {
-            if (target < candidates[i]) {
-                return res;
+            int c = candidates[i];
+            if (target == c) {
+                List<Integer> r = new ArrayList<>(cur);
+                r.add(c);
+                res.add(r);
+                return;
+            } else if (target < c) {
+                return;
+            } else {
+                cur.add(c);
+                dfs(candidates, res, target - c, cur, i);
+                cur.remove(cur.size() - 1);
             }
-            if (target == candidates[i]) {
-                res.add(Arrays.asList(candidates[i]));
-                return res;
-            }
-            // else target > candidates[i]
-            List<List<Integer>> curRes = combinationSum(candidates, target - candidates[i], i);
-            for (List<Integer> curRow : curRes) {
-                List<Integer> row = new ArrayList<>();
-                row.add(candidates[i]);
-                row.addAll(curRow);
-                res.add(row);
-            }
+
         }
-
-
-        return res;
     }
 
     public static void main(String[] args) {

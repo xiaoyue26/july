@@ -15,37 +15,35 @@ public class OJ076 {
             map[t.charAt(i)]++;
         }
 
-        int counter = t.length();
-        int begin = 0, end = 0, head = 0;
-        int res = Integer.MAX_VALUE;
+        int lackCount = t.length();
+        int begin = 0, end = 0;
+        int minWordHead = 0, minWordLen = Integer.MAX_VALUE;
 
         while (end < s.length()) {
             char endChar = s.charAt(end);
             if (map[endChar] > 0) {// t中需要这个char
-                counter--;
+                lackCount--;
             }
             map[endChar]--;//即使不需要,也把不需要的程度减1 (不需要的字母变成了负数)
             end++;
 
-            while (counter == 0) {
-                if (end - begin < res) {//record res
-                    res = end - begin;
-                    head = begin;
+            while (lackCount == 0) {// 如果已经找到一个解: 记录和收缩
+                if (end - begin < minWordLen) {//record res
+                    minWordLen = end - begin;
+                    minWordHead = begin;
                 }
                 // 收缩:
-                if (map[s.charAt(begin)] == 0) {// 遇到的字母中,需要的字母才会是0.
-                    counter++;
+                if (map[s.charAt(begin)] == 0) {// 遇到的字母中,需要的字母才会是0. 不需要的字母、又遇到了,则会是负数。
+                    lackCount++;// 缺失数+1
                 }
-                map[s.charAt(begin)]++;//回退
-                begin++;// 收缩
+                map[s.charAt(begin)]++; // 释放begin位置、更新状态
+                begin++; // 收缩
             }
-
-
         }
-        if (res == Integer.MAX_VALUE) {
+        if (minWordLen == Integer.MAX_VALUE) {
             return "";
         }
-        return s.substring(head, head + res);
+        return s.substring(minWordHead, minWordHead + minWordLen);
     }
 
 

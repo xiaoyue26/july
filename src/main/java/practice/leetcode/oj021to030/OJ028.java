@@ -1,5 +1,8 @@
 package practice.leetcode.oj021to030;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by xiaoyue26 on 17/11/12.
  */
@@ -12,6 +15,11 @@ public class OJ028 {
         if (needle.length() == 0 && haystack.length() == 0) {
             return 0;
         }
+        /*int nextMap[] = new int[needle.length()];
+        for (int i = 0; i < needle.length(); i++) {
+            // nextMap.put(needle.charAt(i), needle.lastIndexOf(needle.charAt(i)));
+            nextMap[i]=needle.lastIndexOf(needle.charAt(i));
+        }*/
 
         int curEnd = needle.length() - 1;
 
@@ -22,13 +30,14 @@ public class OJ028 {
             if (haystack.charAt(curEnd - i) == needle.charAt(needle.length() - 1 - i)) {
                 i++;
             } else {
-                if (curEnd + 1 >= haystack.length()) {
+                if (curEnd + 1 >= haystack.length()) {// already found
                     break;
                 }
                 next = haystack.charAt(curEnd + 1);
-                nextIndex = needle.lastIndexOf(next);//这个可以缓存一下
+                nextIndex = needle.lastIndexOf(next);
+                // nextIndex = nextMap[]//nextMap.getOrDefault(next, -1);
                 if (nextIndex == -1) {
-                    curEnd += needle.length();
+                    curEnd += needle.length() + 1;
                 } else {
                     curEnd += needle.length() - nextIndex;
                 }
@@ -52,7 +61,7 @@ public class OJ028 {
 
 
         int next[] = new int[needle.length()];
-        buildNext(needle, next);
+        buildNext(needle, next); // k位置结尾的最大相同前后缀
         for (int k : next) {
             System.out.print(k + ",");
         }
@@ -70,25 +79,24 @@ public class OJ028 {
                 }
             }
         }
-        if (j == needle.length()) {
+        if (j == needle.length()) {// found:
             return i - j;
+        } else { // not found:
+            return -1;
         }
-
-        return -1;
-
     }
 
     private void buildNext(String str, int[] next) {
         next[0] = 0;
-        int k = 0;
+        int pre = next[0];// 上一位置的最大前后缀长度
         for (int i = 1; i < str.length(); i++) {
-            while (k > 0 && str.charAt(i) != str.charAt(k)) {
-                k = next[k - 1];// 见注释K
+            while (pre > 0 && str.charAt(i) != str.charAt(pre)) {
+                pre = next[pre - 1];// 见注释K
             }
-            if (str.charAt(i) == str.charAt(k)) {
-                ++k;
+            if (str.charAt(i) == str.charAt(pre)) {
+                ++pre;
             }
-            next[i] = k;
+            next[i] = pre;
         }
     }
 
@@ -115,16 +123,17 @@ public class OJ028 {
      * 直接拓展next[i-1]的成果失败.因此 next[i]<=next[i-1]
      *
      * +_______+___+______+________+_________+_____+,+
-     * 0       x   x'    k-1      i-k        x''  i-1,i
+     * 0       x0   x1    k-1      i-k        x2  i-1,i
      *
      * 设i-1时,前缀为[0:k-1],后缀为[i-k:i-1].
      * 则i时,前缀在[0:k-1)范围内.
      *
      *
      *
-     * 由于 [x'k-1]=[x'',i-1]
-     * 如果找到一个 [0,x]=[x'',i-1]
-     * 则 必有  [0,x]=[x',k-1]
-     * 因此正好是[0,k-1]范围内的最大前缀后缀. (相似子结构)
+     * 由于 [x1,k-1]=[x2,i-1];
+     * 如果找到一个 [0,x0]=[x2,i-1];
+     * 则 必有  [0,x0]=[x1,k-1];
+     * 因此正好必定是[0,k-1]范围内的相同前缀后缀. (相似子结构)
+     * 又因为[0,k-1]内最大的相同前缀后缀为next[k-1],因此所求的最大值为next[k-1].
      * */
 }

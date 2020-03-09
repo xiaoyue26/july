@@ -5,29 +5,34 @@ package practice.leetcode.oj011to020;
  */
 public class OJ020 {
     public boolean isValid(String s) {
-        char[] stack = new char[s.length()];
+        char[] stack = new char[s.length() / 2 + 1];
         int top = -1;
+        char c;
         for (int i = 0; i < s.length(); i++) {
-            switch (s.charAt(i)) {
+            c = s.charAt(i);
+            switch (c) {
                 case '{':
                 case '[':
                 case '(':
-                    stack[++top] = s.charAt(i);
+                    if (top == stack.length - 1) {
+                        return false;
+                    }
+                    stack[++top] = c;
                     break;
                 case '}':
-                    if (top < 0 || stack[top] != '{') {
+                    if (top == -1 || stack[top] != '{') {
                         return false;
                     }
                     top--;
                     break;
                 case ']':
-                    if (top < 0 || stack[top] != '[') {
+                    if (top == -1 || stack[top] != '[') {
                         return false;
                     }
                     top--;
                     break;
                 case ')':
-                    if (top < 0 || stack[top] != '(') {
+                    if (top == -1 || stack[top] != '(') {
                         return false;
                     }
                     top--;
@@ -35,6 +40,7 @@ public class OJ020 {
                 default:
                     break;
             }
+
         }
         return top == -1;
     }

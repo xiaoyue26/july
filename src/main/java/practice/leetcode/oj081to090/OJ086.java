@@ -10,48 +10,28 @@ import java.util.Arrays;
 public class OJ086 {
 
     public ListNode partition(ListNode head, int x) {
-        ListNode dumpHead = new ListNode(-1);
-        dumpHead.next = head;
-        ListNode lessTail = null;
-        ListNode otherTail = null;
-        boolean sw = false;
-        while (head != null && (lessTail == null || otherTail == null)) {
-            if (head.val < x) {
-                lessTail = head;
-            } else {
-                otherTail = head;
-                if (lessTail == null) {
-                    sw = true;
-                }
-            }
-            head = head.next;
-        }
-        if (sw && lessTail != null) {
-            otherTail.next = null;
-            lessTail.next = dumpHead.next;
-            dumpHead.next = lessTail;
-        }
-        if (otherTail != null) {
-            otherTail.next = null;
-        }
-
+        ListNode dumpLeft = new ListNode(-1);
+        ListNode dumpRight = new ListNode(-1);
+        ListNode leftTail = dumpLeft, rightTail = dumpRight;
         while (head != null) {
             if (head.val < x) {
-                ListNode tmp = lessTail.next;
-                lessTail.next = head;
-                lessTail = head;
-                head = head.next;
-                lessTail.next = tmp;
-            } else {
-                otherTail.next = head;
-                otherTail = head;
-                head = head.next;
-                otherTail.next = null;
-            }
+                leftTail.next = head;
+                leftTail = head;
 
+            } else {
+                rightTail.next = head;
+                rightTail = head;
+            }
+            head = head.next;
+            rightTail.next = null;
+            leftTail.next = null;
         }
 
-        return dumpHead.next;
+        if (rightTail != dumpRight) {
+            leftTail.next = dumpRight.next;
+        }
+        return dumpLeft.next;
+        //  return null;
     }
 
     public static void main(String[] args) {

@@ -59,6 +59,8 @@ public class OJ050 {
     }
 
     public double myPow(double x, int n) {
+        // 负数转化为正数;
+        // 奇数转化为偶数.
         if (x == 0) {
             return 0;
         }
@@ -69,10 +71,11 @@ public class OJ050 {
             if (n == Integer.MIN_VALUE) {
                 return myPow(1 / x, Integer.MAX_VALUE) / x;
             } else {
-                return myPow(1 / x, -n);
+                return myPow(1 / x, -n);// 避免-n溢出
             }
 
         }
+        // n>0
         if (n % 2 == 1) {
             return myPow(x * x, n / 2) * x;
         } else {

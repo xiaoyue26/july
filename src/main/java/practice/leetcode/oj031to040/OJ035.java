@@ -1,5 +1,6 @@
 package practice.leetcode.oj031to040;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 /**
@@ -19,24 +20,18 @@ public class OJ035 {
                 return mid;
             }
         }
-
-        if(left>=nums.length){
-            return left;
-        }
-        if (nums[left] <= target) {
-            return left;
-        } else {//>
-            return right + 1;
-        }
+        return left; // insert point
     }
 
     public static void main(String[] args) {
         OJ035 obj = new OJ035();
-        int nums[] = {1, 3, 6, 7,10};
+        int nums[] = {1, 3, 6, 7, 10};
 
         for (int num = 0; num < 13; ++num) {
-            System.out.print(num+",");
-            System.out.println(obj.searchInsert(nums, num));
+            System.out.print(num + ",");
+            System.out.print(obj.searchInsert(nums, num));
+            int tmp = Arrays.binarySearch(nums, num);
+            System.out.println("," + (tmp >= 0 ? tmp : -tmp - 1));
         }
 
     }

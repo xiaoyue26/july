@@ -13,7 +13,7 @@ public class OJ059 {
         int[][] res = new int[n][n];
         int left = 0, right = n - 1, up = 0, down = n - 1;
         int i = 0, j = 0;
-        int direct[] = {0, 1};
+        int []direct = {0, 1};
         int count = 1;
         while (count <= n * n) {
             res[i][j] = count++;

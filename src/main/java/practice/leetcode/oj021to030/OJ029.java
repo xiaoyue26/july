@@ -66,16 +66,16 @@ public class OJ029 {
         boolean flag = true;
         if (dividend > 0) {
             flag = false;
-            dividend = -dividend;
+            dividend = -dividend;// 保持被除数是负数
         }
         if (divisor > 0) {
             flag = !flag;
-            divisor = -divisor;
+            divisor = -divisor; // 保持除数也是负数
         }
         int a = dividend, b = divisor, tmp = 1, result = 0;
         // dividend<0 and divisor<0 now: 如果用正数的话,绝对值会溢出,用负数就没问题了.
         while (a <= b) {
-            while (a <= b && a < (b << 1) && (b << 1) < b) {
+            while (a <= b && a < (b << 1) && (b << 1) < b) {// 找到最接近的幂
                 b <<= 1;
                 tmp <<= 1;
             }

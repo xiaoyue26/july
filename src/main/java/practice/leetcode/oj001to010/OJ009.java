@@ -14,8 +14,7 @@ public class OJ009 {
 
         int y = 0;
         while (x > y) {
-            y *= 10;
-            y += x % 10;
+            y = 10 * y + x % 10;
             x /= 10;
         }
         if (x == y || x == y / 10)

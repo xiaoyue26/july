@@ -16,7 +16,7 @@ public class OJ078 {
 
     private void dfs(int[] nums, int start, int end
             , List<Integer> row, List<List<Integer>> res) {
-        res.add(new ArrayList<>(row));
+        res.add(new ArrayList<>(row)); // 立刻记录
         for (int i = start; i <= end; i++) {
             row.add(nums[i]);
             dfs(nums, i + 1, end, row, res);

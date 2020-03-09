@@ -16,7 +16,7 @@ public class OJ090 {
     }
 
     private void dfs(int[] nums, int start, List<List<Integer>> res, ArrayList<Integer> tmp) {
-        res.add(new ArrayList<>(tmp));
+        res.add(new ArrayList<>(tmp));// 立刻记录
         for (int i = start; i < nums.length; i++) {
             if (i > start && nums[i - 1] == nums[i]) {
                 continue;

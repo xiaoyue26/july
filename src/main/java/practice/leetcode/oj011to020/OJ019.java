@@ -9,29 +9,25 @@ import java.util.Arrays;
  */
 public class OJ019 {
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        if (head == null)
+        if (head == null || n < 1) {
             return null;
-        if (n <= 0) {
-            return head;
         }
         ListNode dumpHead = new ListNode(-1);
+        ListNode pre = dumpHead, cur = pre;
         dumpHead.next = head;
-        ListNode left = dumpHead;
-        ListNode right = head;
-        //  make right n step far
-        while (n > 1) {
-            right = right.next;
-            n--;
+        for (int i = 0; i < n && cur != null; i++) {
+            cur = cur.next;
         }
-        // left and right move
-        while(right!=null&&right.next!=null){
-            left=left.next;
-            right=right.next;
+        if (cur == null) {
+            return head;
         }
-
-        // remove left.next
-        //ListNode tmp=left.next.next;
-        left.next=left.next.next;
+        while (cur.next != null) {
+            cur = cur.next;
+            pre = pre.next;
+        }
+        cur = pre.next.next;
+        pre.next.next = null;
+        pre.next = cur;
         return dumpHead.next;
     }
 

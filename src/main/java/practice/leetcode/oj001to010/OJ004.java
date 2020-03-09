@@ -4,7 +4,7 @@ package practice.leetcode.oj001to010;
  * Created by xiaoyue26 on 17/10/31.
  */
 public class OJ004 {
-    // @desperate:
+    // @desperated:
     private double findMedianSortedArrays(int[] num) {
         if (num == null || num.length == 0) {
             throw new RuntimeException("empty num has no median");
@@ -20,7 +20,7 @@ public class OJ004 {
             return 0;
         }
         int len = nums1.length + nums2.length;
-        if (len % 2 == 0) {// 偶数: len = 2x, return f(x)+f(x+1)
+        if (len % 2 == 0) {// 偶数: len = 2x, return [f(x)+f(x+1)]/2
             return ((double) findXth(len / 2, nums1, 0, nums1.length - 1, nums2, 0, nums2.length - 1)
                     + (double) findXth(len / 2 + 1, nums1, 0, nums1.length - 1, nums2, 0, nums2.length - 1)) / 2;
         } else {// 奇数: len=2x+1 return f(x+1)
@@ -45,8 +45,7 @@ public class OJ004 {
         if (x == m + n) {
             return Math.max(nums1[end1], nums2[end2]);
         }
-        // int k1 = begin1 + m / 2;
-        // int k2 = begin2 + n / 2;
+
         if (end1 - begin1 > end2 - begin2) {// keep nums1 shorter
             return findXth(x, nums2, begin2, end2, nums1, begin1, end1);
         }
@@ -54,9 +53,9 @@ public class OJ004 {
         int part2 = x - part1;
         int k1 = begin1 + part1 - 1;
         int k2 = begin2 + part2 - 1;
-        if (nums1[k1] < nums2[k2]) {
+        if (nums1[k1] < nums2[k2]) {// nums1去头,nums2去尾:
             return findXth(x - part1, nums1, k1 + 1, end1, nums2, begin2, k2);
-        } else if (nums1[k1] > nums2[k2]) {
+        } else if (nums1[k1] > nums2[k2]) {// nums1去尾,nums2去头:
             return findXth(x - part2, nums1, begin1, k1, nums2, k2 + 1, end2);
         } else { // nums1[k1]==nums2[k2]
             return nums1[k1];

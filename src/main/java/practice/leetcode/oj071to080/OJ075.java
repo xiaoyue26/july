@@ -15,9 +15,9 @@ public class OJ075 {
         int cur = 0;
         while (cur <= head2) {
             if (nums[cur] == 0) {
-                if (tail0 != cur) {
-                    swap(nums, cur, tail0);
-                }
+                //if (tail0 != cur) {
+                swap(nums, cur, tail0);
+                //}
                 tail0++;
                 cur++;
             } else if (nums[cur] == 2) {
@@ -42,7 +42,7 @@ public class OJ075 {
 
     public static void main(String[] args) {
         OJ075 obj = new OJ075();
-        int[] nums = {1,0};
+        int[] nums = {1, 0};
         obj.sortColors(nums);
         PrintUtils.print(nums);
 

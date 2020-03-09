@@ -21,7 +21,7 @@ public class OJ049 {
             }
             String key = String.valueOf(counts[i]);
             if (locMap.containsKey(key)) {
-                int index=locMap.get(key);
+                int index = locMap.get(key);
                 res.get(index).add(strs[i]);
             } else {
                 locMap.put(key, res.size());

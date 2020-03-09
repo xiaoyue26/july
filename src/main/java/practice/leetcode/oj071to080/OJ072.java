@@ -9,7 +9,7 @@ public class OJ072 {
         if (word1 == null || word1.length() == 0) {
             return word2.length();
         }
-        if (word2 == null || word1.length() == 0) {
+        if (word2 == null || word2.length() == 0) {
             return word1.length();
         }
         int m = word1.length(), n = word2.length();
@@ -52,8 +52,10 @@ public class OJ072 {
 
     public static void main(String[] args) {
         OJ072 obj = new OJ072();
-        System.out.println(obj.minDistance("abc", "dfs"));
-        System.out.println(obj.minDistance("abc", "acb"));
-        System.out.println(obj.minDistance("abd", "dab"));
+        System.out.println(obj.minDistance("abc", "dfs"));//3
+        System.out.println(obj.minDistance("abc", "acb"));//2
+        System.out.println(obj.minDistance("abd", "dab"));//2
+        System.out.println(obj.minDistance("horse", "ros"));//3
+        System.out.println(obj.minDistance("intention", "execution"));//5
     }
 }

@@ -8,63 +8,31 @@ import java.util.*;
  * Created by xiaoyue26 on 17/11/8.
  */
 public class OJ023 {
-    public static class ListNodeComparator implements Comparator<ListNode> {
-
-        @Override
-        public int compare(ListNode o1, ListNode o2) {
-            if (o1 == null) {
-                return -1;
-            }
-            if (o2 == null) {
-                return 1;
-            }
-            return Integer.compare(o1.val, o2.val);
-        }
-    }
     public ListNode mergeKLists(ListNode[] lists) {
-        if (lists == null) {
-            throw new NullPointerException("lists null");
-        }
-        if (lists.length == 0) {
+        if (lists == null || lists.length < 1) {
             return null;
         }
+        if (lists.length == 1) {
+            return lists[0];
+        }
+        PriorityQueue<ListNode> heap = new PriorityQueue<>(lists.length, Comparator.comparingInt(o -> o.val));
+        for (ListNode l : lists) {
+            if (l != null) heap.offer(l);
+        }
         ListNode dumpHead = new ListNode(-1);
-        ListNode cur = dumpHead;
-        Queue<ListNode> queue = new PriorityQueue<>(new ListNodeComparator());
-        for (ListNode node : lists) {
-            if (node != null) {
-                queue.add(node);
+        ListNode pre = dumpHead, cur;
+        while (!heap.isEmpty()) {
+            cur = heap.poll();
+            pre.next = cur;
+            if (heap.isEmpty()) {
+                break; // quick out
+            }
+            pre = cur;
+            if (cur.next != null) {
+                heap.offer(cur.next);
             }
         }
-        while (!queue.isEmpty()) {
-            ListNode node = queue.remove();
-            cur.next = node;
-            if (node.next != null) {
-                queue.add(node.next);
-            }
-            cur = cur.next;
-        }
-
         return dumpHead.next;
-    }
-
-    private void mergeKLists(ListNode[] lists, ListNode pre) {
-        int min = Integer.MAX_VALUE;
-        int index = -1;
-        for (int i = 0; i < lists.length; i++) {
-            if (lists[i] != null) {
-                if (lists[i].val < min) {
-                    index = i;
-                    min = lists[i].val;
-                }
-            }
-        }
-        if (index != -1) {
-            pre.next = lists[index];
-            pre = pre.next;
-            lists[index] = lists[index].next;
-            mergeKLists(lists, pre);
-        }
     }
 
     public static void main(String[] args) {

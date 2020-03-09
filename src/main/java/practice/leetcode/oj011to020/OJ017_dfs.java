@@ -7,7 +7,7 @@ import java.util.List;
  * Created by xiaoyue26 on 17/11/5.
  */
 public class OJ017_dfs {
-    static String[] words = {
+    private final static String[] words = {
             " "
             , ""
             , "abc"
@@ -25,22 +25,22 @@ public class OJ017_dfs {
             return new ArrayList<>();
         }
         List<String> res = new ArrayList<>();
-        dfs(digits, "", res);
+        dfs(res, "", digits, 0);
         return res;
-
     }
 
-    private void dfs(String digits, String pre, List<String> res) {
-        if (digits.length() == 0) {
+    private void dfs(List<String> res, String pre, String digits, int begin) {
+        if (begin == digits.length()) {
+            // deal res
             res.add(pre);
             return;
         }
-        String chars = words[digits.charAt(0) - '0'];
-        for (int i = 0; i < chars.length(); i++) {
-            dfs(digits.substring(1), pre + chars.charAt(i), res);
+        char c = digits.charAt(begin);
+        String w = words[c - '0'];
+        for (int i = 0; i < w.length(); i++) {
+            c = w.charAt(i);
+            dfs(res, pre + c, digits, begin + 1);
         }
-
-
     }
 
     public static void main(String[] args) {

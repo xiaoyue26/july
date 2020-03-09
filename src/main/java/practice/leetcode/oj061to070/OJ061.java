@@ -16,26 +16,28 @@ public class OJ061 {
         ListNode left = head;
         ListNode right = head;
         int len = 0;
-        while (right != null) {
+        // 得到链表长度
+        while (right != null) { // TODO 可以检测环
             right = right.next;
             len++;
         }
         right = head;
         k = k % len;
-        if(k==0){
+        if (k == 0) {
             return head;
         }
+        // right与left拉开间隔:
         for (int i = 0; i < k && right != null; i++) {
             right = right.next;
         }
         if (right == null) {
             return head;
         }
-        while (right.next != null) {// 原来的链表可不能有环
+        while (right.next != null) {// 去找结尾
             left = left.next;
             right = right.next;
         }
-
+        // 重组链表:
         ListNode newHead = left.next;
         left.next = null;
         right.next = head;
